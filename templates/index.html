@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" href="data:,">
+        <!-- <link rel="shortcut icon" href="#" /> -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fish weight Prediction in (grams)</title>
+        <style>
+            input[type=number], select {
+            width: 20%;
+            padding: 5px 5px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            }
+            body, html {
+              height: 100%;
+              margin: 0;
+              font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            * {
+              box-sizing: border-box;
+            }
+            
+            .bg-image {
+              /* The image used */
+              background-image: url("https://images.pexels.com/photos/3361052/pexels-photo-3361052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+              
+              /* Add the blur effect */
+              filter: blur(8px);
+              -webkit-filter: blur(8px);
+              
+              /* Full height */
+              height: 100%; 
+              
+              /* Center and scale the image nicely */
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            
+            /* Position text in the middle of the page/image */
+            .bg-text {
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+              color: white;
+              font-weight: bold;
+              border: 3px solid #f1f1f1;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 2;
+              width: 80%;
+              padding: 20px;
+              text-align: center;
+            }
+            </style>
+    </head>
+
+    <body TEXT = "WHITE";>
+        <div class="bg-image"></div>
+        <div class="bg-text">
+        <h1> Fish weight Prediction in (grams) </h1>
+        <form method="POST" action="/predict_fish_weight">
+
+            <br>
+            <label>Species : </label>
+            <select style="font-size:15px" class="Species" name = "Species" placeholder="Enter Species">
+                <option value = "Perch">Perch</option>
+                <option value = "Bream">Bream</option>
+                <option value = "Roach">Roach</option>
+                <option value = "Pike">Pike</option>
+                <option value = "Smelt">Smelt</option>
+                <option value = "Parkki">Parkki</option>
+                <option value = "Whitefish">Whitefish</option>
+            </select>
+            <br>
+
+            <label>Length1 in (cm):  </label>
+            <input style="font-size:15px" type = "number" name = "Length1" min="7" max="60" placeholder="Enter Length1" size="30" required>
+            <!-- <h1 style="color:rgb(255, 255, 255);font-size:10px;">Eg: (7 to 60)cm</h1> -->
+            <br>
+
+
+
+            <label>Length2 in (cm) : </label>
+            <input style="font-size:15px" type = "number" name = "Length2" min="5" max="65" placeholder="Enter Length2" size="30" required>
+            <!-- <h1 style="color:rgb(255, 255, 255);font-size:10px;">Eg: (5 to 65)cm</h1> -->
+            <br>
+
+
+
+            <label>Length3 in (cm) : </label>
+            <input style="font-size:15px" type = "number" name = "Length3" min="5" max="70" placeholder="Enter Length3" size="30" required>
+            <!-- <h1 style="color:rgb(255, 255, 255);font-size:10px;">Eg: (5 to 70)cm</h1> -->
+            <br>
+
+
+
+            <label>Height in (cm) : </label>
+            <input style="font-size:15px" type = "number" name = "Height" min="1" max="20" placeholder="Enter Height" size="30" required>
+            <!-- <h1 style="color:rgb(255, 255, 255);font-size:10px;">Eg: (1 to 20)cm</h1> -->
+            <br>
+
+
+
+            <label>Width in (cm) : </label>
+            <input style="font-size:15px" type = "number" name = "Width" min="1" max="10" placeholder="Enter Width" size="30" required>
+            <!-- <h1 style="color:rgb(255, 255, 255);font-size:10px;">Eg: (1 to 10)cm</h1> -->
+            <br>
+
+
+            <!-- Submit -->
+            <style>
+                .button {
+                    display: inline-block;
+                    border-radius: 4px;
+                    background-color: #278ed2;
+                    border: none;
+                    color: #FFFFFF;
+                    text-align: center;
+                    font-size: 28px;
+                    padding: 20px;
+                    width: 250px;
+                    transition: all 0.5s;
+                    cursor: pointer;
+                    margin: 5px;
+                    }
+            .button span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+                }
+
+                .button span:after {
+                content: '\00bb';
+                position: absolute;
+                opacity: 0;
+                top: 0;
+                right: -20px;
+                transition: 0.5s;
+                }
+
+                .button:hover span {
+                padding-right: 25px;
+                }
+
+                .button:hover span:after {
+                opacity: 1;
+                right: 0;
+                }
+            </style>
+            <button style="font-size:20px;vertical-align:middle;font-family:verdana" type="submit" value="Submit" class="button"><span>Estimated Weight </span></button>
+            <br><br>
+            <div style="font-size:25px;font-family:verdana" id="box">{{ prediction_text }} </div>&nbsp;
+            <div style="font-size:25px;font-family:verdana" class="card-title">grams</div>
+            <br>
+            <p>© Lekheshwari.</p>
+            <!-- <input type = "submit" value="SUBMIT">
+
+            <br> -->
+
+            <!-- <p> Weight of your fish is <b> {{ WEIGHT }} grams</b> Only </p> -->
+
+
+        </form>
+
+
+    </body>
+</html>
